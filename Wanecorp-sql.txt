@@ -1,0 +1,198 @@
+-- --------------------------------------------------------
+-- Hôte:                         127.0.0.1
+-- Version du serveur:           8.0.30 - MySQL Community Server - GPL
+-- SE du serveur:                Win64
+-- HeidiSQL Version:             12.1.0.6537
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- Listage de la structure de la base pour laravel
+CREATE DATABASE IF NOT EXISTS `laravel` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `laravel`;
+
+-- Listage de la structure de table laravel. failed_jobs
+CREATE TABLE IF NOT EXISTS `failed_jobs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table laravel.failed_jobs : ~0 rows (environ)
+
+-- Listage de la structure de table laravel. members
+CREATE TABLE IF NOT EXISTS `members` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pseudo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `team_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `members_team_id_foreign` (`team_id`),
+  CONSTRAINT `members_team_id_foreign` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table laravel.members : ~0 rows (environ)
+
+-- Listage de la structure de table laravel. migrations
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table laravel.migrations : ~6 rows (environ)
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+	(21, '2014_10_12_000000_create_users_table', 1),
+	(22, '2014_10_12_100000_create_password_reset_tokens_table', 1),
+	(23, '2019_08_19_000000_create_failed_jobs_table', 1),
+	(24, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+	(25, '2023_04_15_192408_add_role_id_to_users_table', 1),
+	(27, '2023_04_15_202409_create_roles_table', 2),
+	(28, '2023_04_16_074557_create_role_user_table', 3),
+	(29, '2023_04_23_155118_create_streamers_table', 4),
+	(30, '2023_04_23_155156_create_teams_table', 4),
+	(31, '2023_04_23_155205_create_members_table', 4);
+
+-- Listage de la structure de table laravel. password_reset_tokens
+CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table laravel.password_reset_tokens : ~0 rows (environ)
+
+-- Listage de la structure de table laravel. personal_access_tokens
+CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table laravel.personal_access_tokens : ~0 rows (environ)
+
+-- Listage de la structure de table laravel. roles
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table laravel.roles : ~4 rows (environ)
+INSERT INTO `roles` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+	(1, 'superadmin', 'Peut gérer entièrement le site et les permissions', NULL, NULL),
+	(2, 'admin', 'Gère le site et les permissions', NULL, NULL),
+	(3, 'manager', 'Gère les rôles des membres, les articles et les intégrations d\'équipes', NULL, NULL),
+	(4, 'redacteur', 'Rédige des articles', NULL, NULL),
+	(5, 'user', 'utilisateurs', NULL, NULL);
+
+-- Listage de la structure de table laravel. role_user
+CREATE TABLE IF NOT EXISTS `role_user` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned NOT NULL,
+  `role_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `role_user_user_id_foreign` (`user_id`),
+  KEY `role_user_role_id_foreign` (`role_id`),
+  CONSTRAINT `role_user_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `role_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table laravel.role_user : ~3 rows (environ)
+INSERT INTO `role_user` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`) VALUES
+	(1, 1, 2, '2023-04-16 11:55:30', '2023-04-16 11:55:31'),
+	(2, 5, 1, '2023-04-18 13:37:18', '2023-04-18 13:37:19'),
+	(3, 6, 2, NULL, NULL);
+
+-- Listage de la structure de table laravel. streamers
+CREATE TABLE IF NOT EXISTS `streamers` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `online` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table laravel.streamers : ~0 rows (environ)
+
+-- Listage de la structure de table laravel. teams
+CREATE TABLE IF NOT EXISTS `teams` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `game` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `banner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table laravel.teams : ~0 rows (environ)
+
+-- Listage de la structure de table laravel. users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table laravel.users : ~3 rows (environ)
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, 'Geoffrey Praud', 'gorthicas@gmail.com', NULL, '$2y$10$Xu536MwvUgybgQyJiZ6W3ODLE1OE7Z1k0qsJicFq0TIvPO31QE76K', NULL, '2023-04-16 05:33:17', '2023-04-16 05:33:17'),
+	(2, 'Geoffrey Praud', 'gorthicas@gmil.com', NULL, '$2y$10$5CzRv16jumGDvIEC6H9N/.5Pw2kDVDcu35/Tmxtya/5j6lXOxODlq', NULL, '2023-04-16 06:49:07', '2023-04-16 06:49:07'),
+	(3, 'praud geoffrey', 'gorthdicas@gmail.com', NULL, '$2y$10$9sO3RSw269br5Nl13OMinuffWzRZfV9x7AWwSbWLpRQycw00F7rWG', NULL, '2023-04-16 08:53:12', '2023-04-16 08:53:12'),
+	(4, 'Geoffrey Praud', 'goorthicas@gmail.com', NULL, '$2y$10$vCbVhVMzookyKq/Ii.R9neWuKuk1kbU.GYE6XfoOTxjkU5UEdOf7S', '5icEsaohaD0Od1aQjwbK3O1jnfY45wwskcLiJZcSQPuMgLvlnu0wm7p4axFF', '2023-04-17 04:50:12', '2023-04-17 04:50:12'),
+	(5, 'Geoffrey Praud', 'ggorthicas@gmail.com', NULL, '$2y$10$Au7eHBD72DJm08aCIdWKCOV9YnkrixNaBHj04I./ZTS7tVLEqNIMO', NULL, '2023-04-18 05:29:32', '2023-04-18 05:29:32'),
+	(6, 'Geoffrey Praud', 'gorthi@gmail.com', NULL, '$2y$10$tCsQFY2FeGwlSzrflm3fsuf3ezDWFPWdoolYreN0hj1nitDbFAlmK', NULL, '2023-04-19 20:19:18', '2023-04-19 20:19:18'),
+	(7, 'Geoffrey Praud', 'gorttthicas@gmail.com', NULL, '$2y$10$2pt8NPNk.VHqh7bla3cVNOg3zx5cqGYN0rN6fiReVwu4jlvvJKWfy', NULL, '2023-04-23 10:22:56', '2023-04-23 10:22:56');
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

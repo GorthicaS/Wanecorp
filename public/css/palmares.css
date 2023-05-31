@@ -1,0 +1,84 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #f1f1f1;
+    line-height: 1.6;
+    background-color: #212529;
+}
+
+.palmares-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: #212529;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 60px;
+    color: #f1f1f1;
+}
+
+.palmares-event {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 60px;
+    border-bottom: 1px solid #191b1e;
+    padding-bottom: 40px;
+}
+
+.palmares-event:last-child {
+    border-bottom: none;
+}
+
+.palmares-event:nth-child(even) .event-text,
+.palmares-event:nth-child(even) .event-image {
+    order: 1;
+}
+
+.palmares-event:nth-child(odd) .event-text,
+.palmares-event:nth-child(odd) .event-image {
+    order: 2;
+}
+
+.event-text {
+    flex: 0 0 60%;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.event-image {
+    flex: 0 0 35%;
+    overflow: hidden;
+    position: relative;
+}
+
+.event-image img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s ease-in-out;
+}
+
+.event-image:hover img {
+    transform: scale(1.1);
+}
+
+.event-title {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #5d014f;
+}
+
+.event-text p {
+    margin-bottom: 10px;
+    line-height: 1.8;
+}
+
+.event-text p:last-child {
+    color: #f1f1f1;
+    font-style: italic;
+}
